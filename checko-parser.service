@@ -1,0 +1,23 @@
+[Unit]
+Description=Checko Parser Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/root/checko_parser/ваш_репозиторий
+ExecStart=root/checko_parser/checko_parser.py
+Restart=always
+RestartSec=10
+Environment="DISPLAY=:99"
+Environment="PATH=/usr/bin:/usr/local/bin"
+
+# Для Selenium
+Environment="CHROME_PATH=/usr/bin/google-chrome"
+Environment="CHROMEDRIVER_PATH=/usr/bin/chromedriver"
+
+# Логирование
+StandardOutput=file:/var/log/checko-parser.log
+StandardError=file:/var/log/checko-parser-error.log
+
+[Install]
+WantedBy=multi-user.target
