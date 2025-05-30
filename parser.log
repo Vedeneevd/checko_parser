@@ -44,3 +44,92 @@
 2025-05-29 17:30:15,529 - INFO - Обработка компании 16/1000: https://checko.ru/company/sm-1258600005113
 2025-05-29 17:30:19,456 - INFO - Обработка компании 17/1000: https://checko.ru/company/agropole-1257900000511
 2025-05-29 17:30:25,630 - INFO - Обработка компании 18/1000: https://checko.ru/company/kompozit-plyus-1257800048516
+2025-05-30 08:22:36,589 - INFO - ====== WebDriver manager ======
+2025-05-30 08:22:43,545 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 08:22:44,009 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 08:22:44,301 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 08:22:45,043 - INFO - WebDriver version 136.0.7103.113 selected
+2025-05-30 08:22:45,052 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/136.0.7103.113/win32/chromedriver-win32.zip
+2025-05-30 08:22:45,053 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/136.0.7103.113/win32/chromedriver-win32.zip
+2025-05-30 08:22:45,334 - INFO - Driver downloading response is 200
+2025-05-30 08:22:49,986 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 08:22:51,300 - INFO - Driver has been saved in cache [C:\Users\User\.wdm\drivers\chromedriver\win64\136.0.7103.113]
+2025-05-30 08:22:57,253 - INFO - Обработка страницы 1 из 10
+2025-05-30 08:23:00,954 - INFO - Найдено 100 новых ссылок на странице 1
+2025-05-30 08:23:07,487 - INFO - Обработка страницы 2 из 10
+2025-05-30 08:23:08,695 - INFO - Найдено 100 новых ссылок на странице 2
+2025-05-30 08:23:16,110 - INFO - Обработка страницы 3 из 10
+2025-05-30 08:23:17,284 - INFO - Найдено 100 новых ссылок на странице 3
+2025-05-30 08:23:25,989 - INFO - Обработка страницы 4 из 10
+2025-05-30 08:23:27,139 - INFO - Найдено 100 новых ссылок на странице 4
+2025-05-30 08:23:36,400 - INFO - Обработка страницы 5 из 10
+2025-05-30 08:23:37,403 - INFO - Найдено 100 новых ссылок на странице 5
+2025-05-30 08:23:46,962 - INFO - Обработка страницы 6 из 10
+2025-05-30 08:23:48,712 - INFO - Найдено 100 новых ссылок на странице 6
+2025-05-30 08:23:52,445 - INFO - Обработка страницы 7 из 10
+2025-05-30 08:23:53,801 - INFO - Найдено 100 новых ссылок на странице 7
+2025-05-30 08:24:00,274 - INFO - Обработка страницы 8 из 10
+2025-05-30 08:24:01,705 - INFO - Найдено 100 новых ссылок на странице 8
+2025-05-30 08:24:11,596 - INFO - Обработка страницы 9 из 10
+2025-05-30 08:24:12,548 - INFO - Найдено 100 новых ссылок на странице 9
+2025-05-30 08:24:17,634 - INFO - Обработка страницы 10 из 10
+2025-05-30 08:24:18,787 - INFO - Найдено 100 новых ссылок на странице 10
+2025-05-30 08:25:05,857 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216A0AD1130>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/8f37e73f7a13d1a221ead26c45bf9199
+2025-05-30 08:25:09,941 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216A0AD1490>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/8f37e73f7a13d1a221ead26c45bf9199
+2025-05-30 08:25:14,025 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216A0AD1460>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение')': /session/8f37e73f7a13d1a221ead26c45bf9199
+2025-05-30 11:26:53,044 - INFO - ====== WebDriver manager ======
+2025-05-30 11:26:56,423 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:26:56,767 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:26:56,970 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\136.0.7103.113\chromedriver-win32/chromedriver.exe] found in cache
+2025-05-30 11:26:59,724 - INFO - Обработка страницы 1 из 10
+2025-05-30 11:27:02,162 - INFO - Найдено 100 новых ссылок на странице 1
+2025-05-30 11:27:07,778 - INFO - Обработка страницы 2 из 10
+2025-05-30 11:27:08,463 - INFO - Найдено 100 новых ссылок на странице 2
+2025-05-30 11:27:12,558 - INFO - Обработка страницы 3 из 10
+2025-05-30 11:27:13,099 - INFO - Найдено 100 новых ссылок на странице 3
+2025-05-30 11:27:22,659 - INFO - Обработка страницы 4 из 10
+2025-05-30 11:27:23,196 - INFO - Найдено 100 новых ссылок на странице 4
+2025-05-30 11:27:27,982 - INFO - Обработка страницы 5 из 10
+2025-05-30 11:27:28,502 - INFO - Найдено 100 новых ссылок на странице 5
+2025-05-30 11:27:32,208 - INFO - Обработка страницы 6 из 10
+2025-05-30 11:27:32,774 - INFO - Найдено 100 новых ссылок на странице 6
+2025-05-30 11:27:37,357 - INFO - Обработка страницы 7 из 10
+2025-05-30 11:27:37,861 - INFO - Найдено 100 новых ссылок на странице 7
+2025-05-30 11:27:43,116 - INFO - Обработка страницы 8 из 10
+2025-05-30 11:27:43,623 - INFO - Найдено 100 новых ссылок на странице 8
+2025-05-30 11:27:47,109 - INFO - Обработка страницы 9 из 10
+2025-05-30 11:27:47,591 - INFO - Найдено 100 новых ссылок на странице 9
+2025-05-30 11:27:54,560 - INFO - Обработка страницы 10 из 10
+2025-05-30 11:27:55,216 - INFO - Найдено 100 новых ссылок на странице 10
+2025-05-30 11:28:13,128 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None)': /session/6e4401dbb97d7b4175cceace4c5703a4
+2025-05-30 11:29:08,049 - INFO - ====== WebDriver manager ======
+2025-05-30 11:29:09,326 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:29:09,563 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:29:09,787 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\136.0.7103.113\chromedriver-win32/chromedriver.exe] found in cache
+2025-05-30 11:29:11,799 - INFO - Обработка страницы 1 из 10
+2025-05-30 11:29:13,097 - INFO - Найдено 100 новых ссылок на странице 1
+2025-05-30 11:30:26,406 - INFO - ====== WebDriver manager ======
+2025-05-30 11:30:27,897 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:30:28,206 - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-30 11:30:28,428 - INFO - Driver [C:\Users\User\.wdm\drivers\chromedriver\win64\136.0.7103.113\chromedriver-win32/chromedriver.exe] found in cache
+2025-05-30 11:30:30,166 - INFO - Обработка страницы 1 из 10
+2025-05-30 11:30:32,749 - INFO - Найдено 100 новых ссылок на странице 1
+2025-05-30 11:30:42,281 - INFO - Обработка страницы 2 из 10
+2025-05-30 11:30:43,103 - INFO - Найдено 100 новых ссылок на странице 2
+2025-05-30 11:30:50,945 - INFO - Обработка страницы 3 из 10
+2025-05-30 11:30:51,542 - INFO - Найдено 100 новых ссылок на странице 3
+2025-05-30 11:30:58,605 - INFO - Обработка страницы 4 из 10
+2025-05-30 11:30:59,246 - INFO - Найдено 100 новых ссылок на странице 4
+2025-05-30 11:31:08,537 - INFO - Обработка страницы 5 из 10
+2025-05-30 11:31:09,277 - INFO - Найдено 100 новых ссылок на странице 5
+2025-05-30 11:31:16,542 - INFO - Обработка страницы 6 из 10
+2025-05-30 11:31:17,112 - INFO - Найдено 100 новых ссылок на странице 6
+2025-05-30 11:31:21,391 - INFO - Обработка страницы 7 из 10
+2025-05-30 11:31:21,860 - INFO - Найдено 100 новых ссылок на странице 7
+2025-05-30 11:31:31,765 - INFO - Обработка страницы 8 из 10
+2025-05-30 11:31:32,361 - INFO - Найдено 100 новых ссылок на странице 8
+2025-05-30 11:31:41,201 - INFO - Обработка страницы 9 из 10
+2025-05-30 11:31:41,719 - INFO - Найдено 100 новых ссылок на странице 9
+2025-05-30 11:31:45,114 - INFO - Обработка страницы 10 из 10
+2025-05-30 11:31:45,866 - INFO - Найдено 100 новых ссылок на странице 10
+2025-05-30 11:32:13,324 - INFO - Сохранено 5 новых записей. Всего записей: 5

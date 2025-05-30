@@ -309,7 +309,7 @@ def get_all_company_links(driver):
 
 
 def parse_company_page(driver, url, existing_inns):
-    """Парсинг данных компании с проверкой дубликатов по ИНН"""
+    """Парсинг данных компании с проверкой дубликатов по ИНН и немедленной отправкой письма"""
     print(f"\nОбрабатываем компанию: {url}")
     try:
         driver.get(url)
@@ -345,6 +345,18 @@ def parse_company_page(driver, url, existing_inns):
         date = soup.find('div', string='Дата регистрации').find_next('div').get_text(strip=True) if soup.find('div',
                                                                                                               string='Дата регистрации') else None
 
+        # Генеральный директор
+        director_section = soup.find('div', class_='fw-700', string='Генеральный директор')
+        director = None
+        if director_section:
+            director = director_section.find_next('a', class_='link').get_text(strip=True) if director_section.find_next('a', class_='link') else None
+
+        # Учредитель
+        founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
+        founder = None
+        if founder_section:
+            founder = founder_section.find_next('a', class_='link').get_text(strip=True) if founder_section.find_next('a', class_='link') else None
+
         # Телефоны
         phone_section = soup.find('strong', string='Телефоны')
         phones = []
@@ -369,8 +381,19 @@ def parse_company_page(driver, url, existing_inns):
 
         # Формируем строку для таблицы
         current_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(f"Данные: ИНН={inn}, Дата={date}, Телефон={phone}, Email={email}")
-        return [inn, date, phone, email, url, current_date]
+        print(f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
+
+        # Если есть email - отправляем письмо сразу
+        email_sent = None
+        if email:
+            success, message = send_emails_via_smtpbz([{'email': email, 'name': inn}])
+            if success:
+                email_sent = current_date
+                print(f"Письмо успешно отправлено на {email}")
+            else:
+                print(f"Ошибка отправки письма на {email}: {message}")
+
+        return [inn, date, director, founder, phone, email, url, current_date, email_sent]
 
     except Exception as e:
         debug_screenshot(driver, f"parse_error_{url.split('/')[-1]}")
@@ -401,7 +424,8 @@ def save_to_excel(new_data, filepath):
 
         # Создание DataFrame из новых данных
         new_df = pd.DataFrame(new_data,
-                              columns=['ИНН', 'Дата регистрации', 'Телефон', 'Email', 'URL', 'Дата добавления'])
+                              columns=['ИНН', 'Дата регистрации', 'Ген. директор', 'Учредитель',
+                                      'Телефон', 'Email', 'URL', 'Дата добавления', 'EmailSent'])
 
         # Удаление полностью пустых строк
         new_df = new_df.dropna(how='all')
@@ -433,10 +457,13 @@ def save_to_excel(new_data, filepath):
             worksheet = writer.sheets['Sheet1']
             worksheet.set_column('A:A', 15)  # ИНН
             worksheet.set_column('B:B', 15)  # Дата регистрации
-            worksheet.set_column('C:C', 20)  # Телефон
-            worksheet.set_column('D:D', 25)  # Email
-            worksheet.set_column('E:E', 40)  # URL
-            worksheet.set_column('F:F', 20)  # Дата добавления
+            worksheet.set_column('C:C', 25)  # Ген. директор
+            worksheet.set_column('D:D', 25)  # Учредитель
+            worksheet.set_column('E:E', 20)  # Телефон
+            worksheet.set_column('F:F', 25)  # Email
+            worksheet.set_column('G:G', 40)  # URL
+            worksheet.set_column('H:H', 20)  # Дата добавления
+            worksheet.set_column('I:I', 20)  # EmailSent
 
         logger.info(f"Сохранено {len(new_df)} новых записей. Всего записей: {len(final_df)}")
 
@@ -445,9 +472,10 @@ def save_to_excel(new_data, filepath):
         raise
 
 
+
 def send_emails_via_smtpbz(emails_data):
     """Отправка электронных писем через сервис smtp.bz"""
-    url = "https://api.smtp.bz/v1/smtp/mass"
+    url = "https://api.smtp.bz/v1/smtp/send"
     headers = {
         "Authorization": SMTPBZ_API_KEY,
         "Content-Type": "application/json"
@@ -538,12 +566,13 @@ def process_and_send_emails(filepath):
 
 
 def job():
-    """Основная функция сбора данных с надежной защитой от дубликатов"""
+    """Основная функция сбора данных с немедленной отправкой писем"""
     print(f"\n=== Запуск парсера {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===")
 
     driver = setup_driver()
     all_data = []
     processed_count = 0
+    emails_sent = 0
 
     try:
         # Загружаем существующие данные для проверки дубликатов
@@ -567,17 +596,21 @@ def job():
                 all_data.append({
                     'ИНН': data[0],
                     'Дата регистрации': data[1],
-                    'Телефон': data[2],
-                    'Email': data[3],
-                    'URL': data[4],
-                    'Дата добавления': data[5],
-                    'EmailSent': None
+                    'Ген. директор': data[2],
+                    'Учредитель': data[3],
+                    'Телефон': data[4],
+                    'Email': data[5],
+                    'URL': data[6],
+                    'Дата добавления': data[7],
+                    'EmailSent': data[8]  # Дата отправки письма (если было отправлено)
                 })
                 existing_inns.add(data[0])  # Добавляем ИНН в список обработанных
                 processed_count += 1
+                if data[8]:  # Если письмо было отправлено
+                    emails_sent += 1
 
             # Промежуточное сохранение каждые 20 компаний
-            if i % 20 == 0 and all_data:
+            if i % 5 == 0 and all_data:
                 print(f"\nПромежуточное сохранение после {i} компаний...")
                 save_to_excel(all_data, OUTPUT_FILE)
                 all_data = []  # Очищаем после сохранения
@@ -589,13 +622,10 @@ def job():
             print("\nФинальное сохранение результатов...")
             save_to_excel(all_data, OUTPUT_FILE)
 
-        # Отправка писем
-        logger.info("Начинаем отправку писем...")
-        process_and_send_emails(OUTPUT_FILE)
-
         logger.info(f"\n=== Итоги ===")
         logger.info(f"Обработано компаний: {len(company_links)}")
         logger.info(f"Добавлено новых записей: {processed_count}")
+        logger.info(f"Отправлено писем: {emails_sent}")
         logger.info(f"Всего записей в файле: {len(existing_inns) + processed_count}")
 
     except Exception as e:
@@ -607,7 +637,6 @@ def job():
     finally:
         driver.quit()
         print("=== Завершение работы ===")
-
 
 def run_scheduler():
     """Запуск планировщика с обработкой прерываний"""
