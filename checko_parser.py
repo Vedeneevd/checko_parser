@@ -345,17 +345,42 @@ def parse_company_page(driver, url, existing_inns):
         date = soup.find('div', string='Дата регистрации').find_next('div').get_text(strip=True) if soup.find('div',
                                                                                                               string='Дата регистрации') else None
 
-        # Генеральный директор
-        director_section = soup.find('div', class_='fw-700', string='Генеральный директор')
+        # Генеральный директор/Директор
         director = None
+        director_section = soup.find('div', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
+        if not director_section:
+            director_section = soup.find('strong', class_='fw-700', string=lambda t: t and 'директор' in t.lower())
+
         if director_section:
-            director = director_section.find_next('a', class_='link').get_text(strip=True) if director_section.find_next('a', class_='link') else None
+            director_tag = director_section.find_next('a', class_='link')
+            if director_tag:
+                director = director_tag.get_text(strip=True)
+            else:
+                # Альтернативный вариант поиска, если структура отличается
+                parent_div = director_section.find_parent('div', class_='mb-3')
+                if parent_div:
+                    director_tag = parent_div.find('a', class_='link')
+                    if director_tag:
+                        director = director_tag.get_text(strip=True)
 
         # Учредитель
-        founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
         founder = None
+        founder_section = soup.find('strong', class_='fw-700', string='Учредитель')
+        if not founder_section:
+            founder_section = soup.find('div', class_='fw-700', string='Учредитель')
+
         if founder_section:
-            founder = founder_section.find_next('a', class_='link').get_text(strip=True) if founder_section.find_next('a', class_='link') else None
+            founder_tag = founder_section.find_next('a', class_='link')
+            if founder_tag:
+                founder = founder_tag.get_text(strip=True)
+            else:
+                # Альтернативный вариант поиска
+                parent_div = founder_section.find_parent('div', class_='mb-3')
+                if parent_div:
+                    founder_tags = parent_div.find_all('a', class_='link')
+                    if founder_tags:
+                        founders = [tag.get_text(strip=True) for tag in founder_tags]
+                        founder = ', '.join(founders)
 
         # Телефоны
         phone_section = soup.find('strong', string='Телефоны')
@@ -381,7 +406,8 @@ def parse_company_page(driver, url, existing_inns):
 
         # Формируем строку для таблицы
         current_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
+        print(
+            f"Данные: ИНН={inn}, Дата={date}, Директор={director}, Учредитель={founder}, Телефон={phone}, Email={email}")
 
         # Если есть email - отправляем письмо сразу
         email_sent = None
@@ -610,7 +636,7 @@ def job():
                     emails_sent += 1
 
             # Промежуточное сохранение каждые 20 компаний
-            if i % 5 == 0 and all_data:
+            if i % 5 == 20 and all_data:
                 print(f"\nПромежуточное сохранение после {i} компаний...")
                 save_to_excel(all_data, OUTPUT_FILE)
                 all_data = []  # Очищаем после сохранения
